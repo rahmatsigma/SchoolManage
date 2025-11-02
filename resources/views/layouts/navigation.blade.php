@@ -27,6 +27,10 @@
                     <x-nav-link :href="route('guru.index')" :active="request()->routeIs('guru.*')">
                         {{ __('Guru') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('mata-pelajaran.index')" :active="request()->routeIs('mata-pelajaran.*')">
+                        {{ __('Mata Pelajaran') }}
+                    </x-nav-link>
                 </div>
             </div>
 

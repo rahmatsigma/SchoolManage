@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\MataPelajaranController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('siswa', SiswaController::class);
     Route::resource('kelas', KelasController::class);
     Route::resource('guru', GuruController::class);
+    Route::resource('mata-pelajaran', MataPelajaranController::class);
 });
 
 require __DIR__.'/auth.php';
