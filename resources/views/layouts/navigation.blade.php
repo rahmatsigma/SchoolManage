@@ -23,6 +23,10 @@
                     <x-nav-link :href="route('kelas.index')" :active="request()->routeIs('kelas.*')">
                         {{ __('Kelas') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('guru.index')" :active="request()->routeIs('guru.*')">
+                        {{ __('Guru') }}
+                    </x-nav-link>
                 </div>
             </div>
 
