@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class MataPelajaran extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'kode_pelajaran',
         'nama_pelajaran',
     ];
+
+    // <-- TARUH DI SINI
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

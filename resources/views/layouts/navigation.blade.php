@@ -31,6 +31,9 @@
                     <x-nav-link :href="route('mata-pelajaran.index')" :active="request()->routeIs('mata-pelajaran.*')">
                         {{ __('Mata Pelajaran') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.*')">
+                        {{ __('Jadwal') }}
+                    </x-nav-link>
                 </div>
             </div>
 
