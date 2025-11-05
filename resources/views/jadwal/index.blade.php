@@ -33,6 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
+                                
                                 @forelse ($jadwals as $jadwal)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->kelas->nama_kelas }}</td>
@@ -42,8 +43,21 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
                                         </td>
+                                        
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            </td>
+                                            <div class="flex space-x-2">
+                                                <a href="{{ route('jadwal.edit', $jadwal->id) }}" class="text-indigo-600 hover:text-indigo-900">
+                                                    Edit
+                                                </a>
+                                                <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -52,7 +66,7 @@
                                         </td>
                                     </tr>
                                 @endforelse
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
 

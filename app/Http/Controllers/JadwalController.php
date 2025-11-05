@@ -71,22 +71,42 @@ class JadwalController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kelas = Kelas::all();
+        $gurus = Guru::all();
+        $mapels = MataPelajaran::all();
+
+        return view('jadwal.edit', compact('jadwal', 'kelas', 'gurus', 'mapels'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Jadwal $jadwal)
     {
-        //
+        $request->validate([
+            'kelas_id' => 'required|exists:kelas,id',
+            'guru_id' => 'required|exists:gurus,id',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajarans,id',
+            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+        ]);
+
+        // Update data di database
+        $jadwal->update($request->all());
+
+        return redirect()->route('jadwal.index')
+                        ->with('success', 'Jadwal pelajaran berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Jadwal $jadwal)
     {
-        //
+        $jadwal->delete();
+
+        return redirect()->route('jadwal.index')
+                        ->with('success', 'Jadwal pelajaran berhasil dihapus.');
     }
 }
