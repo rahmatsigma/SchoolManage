@@ -38,4 +38,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('jadwal', JadwalController::class);
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('siswa', \App\Http\Controllers\SiswaController::class);
+    Route::resource('kelas', \App\Http\Controllers\KelasController::class);
+    Route::resource('guru', \App\Http\Controllers\GuruController::class);
+    Route::resource('mata-pelajaran', \App\Http\Controllers\MataPelajaranController::class);
+    Route::resource('jadwal', \App\Http\Controllers\JadwalController::class);
+
+});
+
 require __DIR__.'/auth.php';
