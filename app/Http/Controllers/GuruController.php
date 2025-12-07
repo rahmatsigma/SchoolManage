@@ -10,9 +10,20 @@ class GuruController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $gurus = Guru::latest()->paginate(10);
+        $search = $request->input('search');
+
+        $query = Guru::query();
+
+        if ($search) {
+            $query->where('nama_lengkap', 'like', "%{$search}%")
+                ->orWhere('nip', 'like', "%{$search}%")
+                ->orWhere('jabatan', 'like', "%{$search}%");
+        }
+
+        $gurus = $query->latest()->paginate(10);
+
         return view('guru.index', compact('gurus'));
     }
 

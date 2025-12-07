@@ -14,11 +14,32 @@ class JadwalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jadwals = Jadwal::with(['kelas', 'guru', 'mataPelajaran'])
-                    ->latest()
-                    ->paginate(10);
+        $search = $request->input('search');
+
+        // Eager load relasi
+        $query = Jadwal::with(['kelas', 'guru', 'mataPelajaran']);
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('hari', 'like', "%{$search}%")
+                // Cari berdasarkan Nama Kelas
+                ->orWhereHas('kelas', function($subQ) use ($search) {
+                    $subQ->where('nama_kelas', 'like', "%{$search}%");
+                })
+                // Cari berdasarkan Nama Guru
+                ->orWhereHas('guru', function($subQ) use ($search) {
+                    $subQ->where('nama_lengkap', 'like', "%{$search}%");
+                })
+                // Cari berdasarkan Nama Mapel
+                ->orWhereHas('mataPelajaran', function($subQ) use ($search) {
+                    $subQ->where('nama_pelajaran', 'like', "%{$search}%");
+                });
+            });
+        }
+
+        $jadwals = $query->latest()->paginate(10);
 
         return view('jadwal.index', compact('jadwals'));
     }

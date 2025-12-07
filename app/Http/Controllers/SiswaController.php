@@ -11,10 +11,18 @@ class SiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $siswa = Siswa::with('kelas')->latest()->paginate(10); // Ambil data terbaru, 10 per halaman
-        return view('siswa.index', compact('siswa'));
+        $search = $request->input('search');
+        $query = Siswa::with('kelas');
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nama_lengkap', 'like', "%{$search}%")
+                ->orWhere('nis', 'like', "%{$search}%");
+            });
+        }
+        $siswa = $query->latest()->paginate(10);
+        return view('siswa.index', compact('siswa', 'search'));
     }
 
     /**

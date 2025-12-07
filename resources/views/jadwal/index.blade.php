@@ -10,9 +10,18 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <a href="{{ route('jadwal.create') }}" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-4 space-y-2 sm:space-y-0">
+                    <a href="{{ route('jadwal.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         Tambah Jadwal
                     </a>
+                    <form action="{{ route('jadwal.index') }}" method="GET" class="w-full sm:w-auto">
+                        <div class="relative">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Hari, Guru, Mapel..." class="w-full sm:w-64 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm pl-10">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
                     @if (session('success'))
                         <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">

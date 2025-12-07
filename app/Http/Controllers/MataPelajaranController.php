@@ -9,9 +9,19 @@ use Illuminate\Validation\Rule; // <-- PENTING
 class MataPelajaranController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-        $mapel = MataPelajaran::latest()->paginate(10);
+        $search = $request->input('search');
+
+        $query = MataPelajaran::query();
+
+        if ($search) {
+            $query->where('nama_pelajaran', 'like', "%{$search}%")
+                ->orWhere('kode_pelajaran', 'like', "%{$search}%");
+        }
+
+        $mapel = $query->latest()->paginate(10);
+
         return view('mata_pelajaran.index', compact('mapel'));
     }
 
