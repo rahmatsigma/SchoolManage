@@ -7,13 +7,24 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\JadwalController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Siswa;
+use App\Models\Guru;
+use App\Models\Kelas;
+use App\Models\MataPelajaran;
+use App\Models\Jadwal;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'totalSiswa' => Siswa::count(),
+        'totalGuru' => Guru::count(),
+        'totalKelas' => Kelas::count(),
+        'totalMapel' => MataPelajaran::count(),
+        'totalJadwal' => Jadwal::count(),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
