@@ -10,6 +10,7 @@ class Guru extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'nip', 
         'nama_lengkap', 
         'jabatan', 
@@ -17,7 +18,11 @@ class Guru extends Model
         'alamat'
     ];
 
-    // <-- TARUH DI SINI
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function jadwals()
     {
         return $this->hasMany(Jadwal::class);

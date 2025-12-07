@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\GuruDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Siswa;
 use App\Models\Guru;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/jadwal-saya', [GuruDashboardController::class, 'jadwalSaya'])->name('jadwal.saya');
     Route::resource('siswa', SiswaController::class);
     Route::resource('kelas', KelasController::class);
     Route::resource('guru', GuruController::class);
