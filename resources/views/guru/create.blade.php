@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="HELLO DUNIA">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Tambah Guru Baru') }}
         </h2>
@@ -23,9 +23,23 @@
                     <form action="{{ route('guru.store') }}" method="POST">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <div class="col-span-1 md:col-span-2">
+                                <x-input-label for="user_id" :value="__('Hubungkan dengan Akun Login (Opsional)')" />
+                                <select name="user_id" id="user_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="">-- Tidak Terhubung (Atau Pilih Nanti) --</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                                            {{ $user->name }} ({{ $user->email }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <p class="text-xs text-gray-500 mt-1">Pilih akun pengguna agar guru ini bisa mengakses menu "Jadwal Saya".</p>
+                            </div>
+
                             <div>
                                 <x-input-label for="nip" :value="__('NIP')" />
-                                <x-text-input id="nip" name="nip" type="text" class="mt-1 block w-full" :value="old('nip')" required autofocus />
+                                <x-text-input id="nip" name="nip" type="text" class="mt-1 block w-full" :value="old('nip')" required />
                             </div>
                             <div>
                                 <x-input-label for="nama_lengkap" :value="__('Nama Lengkap')" />
@@ -39,7 +53,7 @@
                                 <x-input-label for="nomor_telepon" :value="__('Nomor Telepon (Opsional)')" />
                                 <x-text-input id="nomor_telepon" name="nomor_telepon" type="text" class="mt-1 block w-full" :value="old('nomor_telepon')" />
                             </div>
-                            <div class="col-span-2">
+                            <div class="col-span-1 md:col-span-2">
                                 <x-input-label for="alamat" :value="__('Alamat (Opsional)')" />
                                 <textarea id="alamat" name="alamat" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">{{ old('alamat') }}</textarea>
                             </div>

@@ -9,37 +9,37 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                @if (Auth::user()->role === 'guru')
                 <x-nav-link :href="route('jadwal.saya')" :active="request()->routeIs('jadwal.saya')">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     {{ __('Jadwal Saya') }}
                 </x-nav-link>
+                @endif
 
                 @if (Auth::user()->role === 'admin')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
                     <x-nav-link :href="route('siswa.index')" :active="request()->routeIs('siswa.*')">
                         {{ __('Siswa') }}
                     </x-nav-link>
-
                     <x-nav-link :href="route('kelas.index')" :active="request()->routeIs('kelas.*')">
                         {{ __('Kelas') }}
                     </x-nav-link>
-
                     <x-nav-link :href="route('guru.index')" :active="request()->routeIs('guru.*')">
                         {{ __('Guru') }}
                     </x-nav-link>
-
                     <x-nav-link :href="route('mata-pelajaran.index')" :active="request()->routeIs('mata-pelajaran.*')">
                         {{ __('Mata Pelajaran') }}
                     </x-nav-link>
                     <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.*')">
                         {{ __('Jadwal') }}
                     </x-nav-link>
-                </div>
                 @endif
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -91,9 +91,31 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+        @if (Auth::user()->role === 'guru')
+        <x-responsive-nav-link :href="route('jadwal.saya')" :active="request()->routeIs('jadwal.saya')">
+                {{ __('Jadwal Saya') }}
+            </x-responsive-nav-link>
+        @endif
+        @if (Auth::user()->role === 'admin')
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('siswa.index')" :active="request()->routeIs('siswa.index')">
+                {{ __('Siswa') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('kelas.index')" :active="request()->routeIs('kelas.index')">
+                {{ __('Kelas') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('guru.index')" :active="request()->routeIs('guru.index')">
+                {{ __('Guru') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('mata-pelajaran.index')" :active="request()->routeIs('mata-pelajaran.index')">
+                {{ __('Mata Pelajaran') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.index')">
+                {{ __('Jadwal') }}
+            </x-responsive-nav-link>
+        @endif
         </div>
 
         <!-- Responsive Settings Options -->

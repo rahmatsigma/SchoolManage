@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use App\Models\Guru;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GuruController extends Controller
@@ -32,7 +33,8 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view('guru.create');
+        $users = User::where('role', 'guru')->get();
+        return view('guru.create', compact('users'));
     }
 
     /**
@@ -46,6 +48,7 @@ class GuruController extends Controller
             'jabatan' => 'required',
             'nomor_telepon' => 'nullable',
             'alamat' => 'nullable',
+            'user_id' => 'nullable|exists:users,id',
         ]);
 
         Guru::create($request->all());
