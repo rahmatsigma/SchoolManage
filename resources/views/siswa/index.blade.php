@@ -24,10 +24,6 @@
                                 value="{{ request('search') }}"
                                 placeholder="Cari Nama atau NIS..." 
                                 class="w-full sm:w-64 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm pl-10">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                </svg>
-                            </div>
                         </div>
                     </form>
 
