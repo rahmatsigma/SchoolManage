@@ -15,7 +15,7 @@ use App\Models\MataPelajaran;
 use App\Models\Jadwal;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
