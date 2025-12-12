@@ -1,48 +1,43 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Edit Mata Pelajaran') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+             <div class="bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden shadow-xl sm:rounded-2xl p-8">
 
-                    @if ($errors->any())
-                        <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                @if ($errors->any())
+                    <div class="mb-6 p-4 text-sm text-red-200 bg-red-900/50 border border-red-500/50 rounded-lg">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                    <form action="{{ route('mata-pelajaran.update', $mapel->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                <form action="{{ route('mata-pelajaran.update', $mataPelajaran->id) }}" method="POST" class="space-y-6">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div>
+                        <x-input-label for="nama_mapel" :value="__('Nama Mata Pelajaran')" class="text-gray-300" />
+                        <x-text-input id="nama_mapel" name="nama_mapel" type="text" class="mt-1 block w-full bg-white/10 text-white border-white/20" :value="old('nama_mapel', $mataPelajaran->nama_mapel)" required autofocus />
+                    </div>
+                    
+                    <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                        <a href="{{ route('mata-pelajaran.index') }}">
+                            <x-secondary-button class="bg-white/5 border-white/10 text-gray-300 hover:bg-white/10">Batal</x-secondary-button>
+                        </a>
+                        <x-primary-button>
+                            {{ __('Update Data') }}
+                        </x-primary-button>
+                    </div>
+                </form>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <x-input-label for="kode_pelajaran" :value="__('Kode Pelajaran (Contoh: MTK-10)')" />
-                                <x-text-input id="kode_pelajaran" name="kode_pelajaran" type="text" class="mt-1 block w-full" :value="old('kode_pelajaran', $mapel->kode_pelajaran)" required autofocus />
-                            </div>
-                            <div>
-                                <x-input-label for="nama_pelajaran" :value="__('Nama Mata Pelajaran')" />
-                                <x-text-input id="nama_pelajaran" name="nama_pelajaran" type="text" class="mt-1 block w-full" :value="old('nama_pelajaran', $mapel->nama_pelajaran)" required />
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex justify-end">
-                            <x-primary-button>
-                                {{ __('Update') }}
-                            </x-primary-button>
-                        </div>
-                    </form>
-
-                </div>
             </div>
         </div>
     </div>

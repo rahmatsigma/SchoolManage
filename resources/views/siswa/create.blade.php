@@ -1,65 +1,48 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tambah Siswa Baru') }}
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Tambah Data Siswa') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+        <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden shadow-xl sm:rounded-2xl p-8">
+                
+                <form method="POST" action="{{ route('siswa.store') }}" class="space-y-6">
+                    @csrf
 
-                    @if ($errors->any())
-                        <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    <div>
+                        <x-input-label for="nis" :value="__('NIS')" class="text-gray-300" />
+                        <x-text-input id="nis" class="block mt-1 w-full" type="text" name="nis" :value="old('nis')" required autofocus />
+                        <x-input-error :messages="$errors->get('nis')" class="mt-2" />
+                    </div>
 
-                    <form action="{{ route('siswa.store') }}" method="POST">
-                        @csrf
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <x-input-label for="nis" :value="__('NIS')" />
-                                <x-text-input id="nis" name="nis" type="text" class="mt-1 block w-full" :value="old('nis')" required />
-                            </div>
-                            <div>
-                                <x-input-label for="nama_lengkap" :value="__('Nama Lengkap')" />
-                                <x-text-input id="nama_lengkap" name="nama_lengkap" type="text" class="mt-1 block w-full" :value="old('nama_lengkap')" required />
-                            </div>
-                            <div>
-                                <x-input-label for="tanggal_lahir" :value="__('Tanggal Lahir')" />
-                                <x-text-input id="tanggal_lahir" name="tanggal_lahir" type="date" class="mt-1 block w-full" :value="old('tanggal_lahir')" required />
-                            </div>
-                            <div>
-                                <x-input-label for="kelas_id" :value="__('Kelas')" />
-                                <select name="kelas_id" id="kelas_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                    <option value="">Pilih Kelas</option>
-                                    @foreach ($kelas as $k)
-                                        <option value="{{ $k->id }}" {{ old('kelas_id') == $k->id ? 'selected' : '' }}>
-                                            {{ $k->nama_kelas }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-span-2">
-                                <x-input-label for="alamat" :value="__('Alamat')" />
-                                <textarea id="alamat" name="alamat" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>{{ old('alamat') }}</textarea>
-                            </div>
-                        </div>
+                    <div>
+                        <x-input-label for="nama_lengkap" :value="__('Nama Lengkap')" class="text-gray-300" />
+                        <x-text-input id="nama_lengkap" class="block mt-1 w-full" type="text" name="nama_lengkap" :value="old('nama_lengkap')" required />
+                        <x-input-error :messages="$errors->get('nama_lengkap')" class="mt-2" />
+                    </div>
 
-                        <div class="mt-6 flex justify-end">
-                            <x-primary-button>
-                                {{ __('Simpan') }}
-                            </x-primary-button>
-                        </div>
-                    </form>
+                    <div>
+                        <x-input-label for="kelas_id" :value="__('Kelas')" class="text-gray-300" />
+                        <select name="kelas_id" id="kelas_id" class="block mt-1 w-full bg-white/10 border border-white/20 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                            <option value="" class="text-gray-800">-- Pilih Kelas --</option>
+                            @foreach ($kelas as $k)
+                                <option value="{{ $k->id }}" class="text-gray-800">{{ $k->nama_kelas }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('kelas_id')" class="mt-2" />
+                    </div>
 
-                </div>
+                    <div class="flex items-center justify-end mt-4 gap-3">
+                        <a href="{{ route('siswa.index') }}">
+                            <x-secondary-button>Batal</x-secondary-button>
+                        </a>
+                        <x-primary-button>Simpan Data</x-primary-button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
