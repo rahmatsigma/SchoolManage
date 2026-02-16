@@ -3,27 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Siswa extends Model
 {
-    protected $fillable = ['nis', 'nama_lengkap', 'tanggal_lahir', 'alamat', 'kelas_id'];
-    protected $fillable = ['user_id', 'nis', 'nama_lengkap', 'kelas_id'];
+    use HasFactory;
 
+    // Gabungkan semua kolom di sini (HANYA SATU baris $fillable)
+    protected $fillable = [
+        'user_id',
+        'nis',
+        'nama_lengkap',
+        'tanggal_lahir',
+        'alamat',
+        'kelas_id'
+    ];
+
+    // Relasi ke User (Akun Login)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-// Definisikan relasi ke model Kelas
+    // Relasi ke Kelas
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
     }
-
-    public function siswa()
-    {
-        return $this->hasOne(Siswa::class);
-    }
-
 }
-
