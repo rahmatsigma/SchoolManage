@@ -39,6 +39,11 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->mataPelajaran->nama_pelajaran }}</td>
                             </tr>
                             @endforeach
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{ route('absensi.create', $jadwal->id) }}" class="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded hover:bg-green-700">
+                                    Absen Siswa
+                                </a>
+                            </td>
                         </tbody>
                     </table>
                 </div>

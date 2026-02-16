@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     // Route untuk Guru
     Route::middleware('role:guru')->group(function () {
         Route::get('/jadwal-saya', [GuruDashboardController::class, 'jadwalSaya'])->name('jadwal.saya');
+    Route::get('/absensi/create/{jadwal}', [App\Http\Controllers\AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi/store/{jadwal}', [App\Http\Controllers\AbsensiController::class, 'store'])->name('absensi.store');
     });
 
     // Route untuk Admin
